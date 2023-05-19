@@ -1,0 +1,16 @@
+# The Mysql volume is there for convenience but should not be
+# versionned as it contains databases and configuration
+# Putting a .gitkeep file in the folder allows the empty folder
+# to be versionned and avoid ownership issues
+/docker/mysql/*
+!/docker/mysql/.gitkeep
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
