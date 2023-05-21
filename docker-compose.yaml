@@ -25,6 +25,17 @@ services:
     user: "1000:1000"
     depends_on:
       - database
+    command: >
+      sh -c "
+        if [ ! -f /var/www/exrep/.initialized ]; then
+          composer install
+          php bin/console lexik:jwt:generate-keypair --overwrite
+          php bin/console doctrine:schema:create
+          php bin/console doctrine:fixtures:load --no-interaction
+          touch /var/www/exrep/.initialized
+        fi
+        exec php-fpm
+      "
   nginx:
     container_name: exrep_nginx
     image: nginx:stable-alpine

@@ -25,15 +25,3 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 USER $USERNAME
-
-# Install all dependancies in case you have a fresh install
-RUN composer install
-
-# Generate the keypair for JWT authentication
-RUN php bin/console lexik:jwt:generate-keypair
-
-# Create the schema (database is already there thanks to docker-compose)
-RUN php bin/console doctrine:schema:create
-
-# Add data in the database (this will purge the database, comment if you want to keep your data)
-RUN php bin/console doctrine:fixtures:load --no-interaction
