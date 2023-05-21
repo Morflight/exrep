@@ -25,3 +25,6 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 USER $USERNAME
+
+# Generate the keypair for JWT authentication
+RUN php bin/console lexik:jwt:generate-keypair
