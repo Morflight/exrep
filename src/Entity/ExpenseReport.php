@@ -36,6 +36,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class ExpenseReport
 {
+    const EXPENSE_TYPES = ['Gas Expense', 'Meal Expense', 'Toll Fees', 'Conference Expense'];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -64,7 +66,7 @@ class ExpenseReport
     #[IntegerWithTwoDecimalsConstraint]
     private ?float $amount = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups(['expense:list', 'expense:item', 'expense:create'])]
     #[Context(normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     #[ApiProperty(
@@ -82,7 +84,7 @@ class ExpenseReport
 
     #[ORM\Column]
     #[Groups(['expense:list', 'expense:item', 'expense:create'])]
-    #[Assert\Choice(['Gas Expense', 'Meal Expense', 'Toll Fees', 'Conference Expense'])]
+    #[Assert\Choice(self::EXPENSE_TYPES)]
     private ?string $type = null;
 
     public function getId(): ?int
