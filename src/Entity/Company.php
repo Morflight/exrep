@@ -25,7 +25,7 @@ class Company
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['company:list', 'expense:create'])]
+    #[Groups(['company:list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

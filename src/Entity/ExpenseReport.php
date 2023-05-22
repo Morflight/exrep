@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -29,11 +32,16 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Put(
             normalizationContext: ['groups' => 'expense:item'],
-            denormalizationContext: ['groups' => 'expense:create']
+            denormalizationContext: ['groups' => 'expense:create'],
         ),
         new Delete(),
     ],
+    extraProperties: [
+        'standard_put' => true,
+    ]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['company.name' => 'partial', 'company.id' => 'exact'])]
+#[ApiFilter(RangeFilter::class, properties: ['amount'])]
 class ExpenseReport
 {
     const EXPENSE_TYPES = ['Gas Expense', 'Meal Expense', 'Toll Fees', 'Conference Expense'];
