@@ -28,3 +28,6 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+# This is a flag file used by docker
+.initialized

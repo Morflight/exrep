@@ -17,12 +17,16 @@ services:
     container_name: exrep_php
     build:
       context: ./docker/php
+      args:
+        - USER_UID=${USER_UID}
+        - USER_GID=${USER_GID}
+        - USERNAME=${USERNAME}
     ports:
       - "9000:9000"
     volumes:
       - ./:/var/www/exrep
     working_dir: /var/www/exrep
-    user: "1000:1000"
+    user: "${USER_UID}:${USER_GID}"
     depends_on:
       - database
     command: >

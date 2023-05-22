@@ -2,7 +2,7 @@
 
 namespace App\Tests\Api;
 
-class CompanyTest extends AbstractApiTest
+class CompanyApiTest extends AbstractApiTest
 {
     public function testGetCompanies(): void
     {
