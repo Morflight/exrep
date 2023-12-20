@@ -34,6 +34,7 @@ To run this application, you need the following:
 
    The database installation might fail the first time you run it, don't worry, just run `make init` again.
 
+If you want to use the AWS feature, you must configure your .env and set the AWS variables there
 
 The app is now running. You can access is on this url: http://localhost:8080 (locally)
 If you encounter any problem, please visit the Useful Commands section and try to rebuild the project.
