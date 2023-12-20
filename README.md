@@ -4,12 +4,16 @@
 
 Exrep is an expense report API built using Symfony 6.2 and PHP 8.1. The goal of this application is to provide a hands-on API that can be easily extended and customized using API Platform.
 
+Some sample code is also available using the AWS SDK, more on that later.
+
 ## Prerequisites
 
 To run this application, you need the following:
 
 - Docker
 - Docker Compose
+- Make
+- Git
 
 ## Getting Started
 
@@ -19,22 +23,19 @@ To run this application, you need the following:
    git clone git@github.com:Morflight/exrep.git && cd exrep
    ```
 
-2. Run Docker Compose
+2. Run Docker Compose inside of the Make target init
 
    ```shell
-   docker-compose up
+   make init
    ```
 
    This will take some time, especially if it's your first run.
    You can grab some coffee or read the rest of the README.
 
-   The installation is finished when you see :
+   The database installation might fail the first time you run it, don't worry, just run `make init` again.
 
-   ```
-   NOTICE: ready to handle connections
-   ```
 
-The app is now running. You can access is on this url: http://localhost:8080
+The app is now running. You can access is on this url: http://localhost:8080 (locally)
 If you encounter any problem, please visit the Useful Commands section and try to rebuild the project.
 
 ## A quick rundown on the infrastructure
@@ -45,11 +46,12 @@ If you encounter any problem, please visit the Useful Commands section and try t
 
    - mysql
 
-   A volume that basically gives you access to the database. In case you want a backup, because why not.
+   A volume that basically gives you access to the database.
 
    - nginx
 
-   The server's configuration, only supports http
+   The server's configuration, only supports http ! For develoment purposes, the port is 8080. Yo might want to change that to make it
+   work on a server.
 
    - php
 
@@ -88,9 +90,10 @@ If you encounter any problem, please visit the Useful Commands section and try t
    docker exec -it exrep_php bin/console debug:config
    ```
 
-4. Where are the controllers ?
+4. Controllers
 
-   To be fair, given the simplicity of my API model, there was no need for it. API Platform handles everything on its own.
+   So far there is just a AWSController that exposes a new endpoint: GET/ api/upload-reports-to-s3 that serializes all reports of the database
+   and send a single .csv file to a bucket with the AWS action PutContent.
 
 ## Introducing the API
 
@@ -164,7 +167,12 @@ You may use this page to test the API or your favorite HTTP Client like Postman 
 
 ## Useful commands
 
-1. Manipulate the database/schema
+1. Make targets
+
+   - make init: to intialize the project
+   - make reset: to reset the project. You must init it again (in case you cause yourself some trouble)
+
+2. Manipulate the database/schema
 
    - Create/Drop database
 
@@ -188,7 +196,7 @@ You may use this page to test the API or your favorite HTTP Client like Postman 
    docker exec -it exrep_php bin/console doctrine:schema:update --force
    ```
 
-2. Docker Compose
+3. Docker Compose
 
    Stop and remove containers
 

@@ -25,3 +25,10 @@ services:
 
     App\Validator\IntegerWithTwoDecimalsConstraintValidator:
         tags: [validator.constraint_validator]
+
+    App\Controller\AWSController:
+        arguments:
+            $awsAccessKey: '%env(AWS_ACCESS_KEY)%'
+            $awsSecretKey: '%env(AWS_SECRET_KEY)%'
+            $region: '%env(AWS_REGION)%'
+            $bucketName: '%env(BUCKET_NAME)%'
