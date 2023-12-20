@@ -29,5 +29,7 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
-# This is a flag file used by docker
-.initialized
+# We do not persist .env files
+.env
+.env.preprod
+.env.prod
