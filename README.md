@@ -4,6 +4,8 @@
 
 Exrep is an expense report API built using Symfony 6.2 and PHP 8.1. The goal of this application is to provide a hands-on API that can be easily extended and customized using API Platform.
 
+As of December 2023, I'm also using Exrep as a standalone application for students to deploy using cloud technologies.
+
 Some sample code is also available using the AWS SDK, more on that later.
 
 ## Prerequisites
@@ -58,7 +60,7 @@ If you encounter any problem, please visit the Useful Commands section and try t
 
    The Dockerfile containing all the packages required to run the app.
 
-   On top of that, the entire app is a volume linked to the PHP container. Any change there is immediately replicated onto the php instance.
+   On top of that, the entire app directory is a volume linked to the PHP container. Any change there is immediately replicated onto the php instance.
 
    Any change you make is live, no need to rebuild. At most you might have to clear the Symfony cache.
 
